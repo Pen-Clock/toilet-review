@@ -31,7 +31,12 @@ const reviewSchema = new Schema({
     commment: {
         type: String,
         trim: true
-    }
+    },
+    type: {
+        type: Number,
+        enum: [1, 2, 3], // 1: Disability, 2: Female, 3: Male
+        required: true
+      }
 });
 
 export default mongoose.model('Review', reviewSchema);

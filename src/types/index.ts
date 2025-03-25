@@ -1,15 +1,31 @@
 import { Document } from "mongoose";
 
-export interface IToilet extends Document {
+export enum ToiletType {
+    DISABILITY = 1,
+    FEMALE = 2,
+    MALE = 3
+}
+
+export interface IBuilding extends Document {
     name: string;
-    description?: string;
     location: {
-        type: string;
-        coordinates: number[];
+      type: string;
+      coordinates: number[];
     };
-    address: string; 
-    is_accessible: boolean; 
-    opening_hours?: string, 
+    address: string;
+    male_toilets_count: number;
+    female_toilets_count: number;
+    unisex_toilets_count: number;
+    total_toilets_count: number;
+  }
+  
+export interface IToilet extends Document {
+    building_id: IBuilding['_id'];
+    name?: string;
+    location: {
+      type: string;
+      coordinates: number[];
+    };
 }
 
 export interface IReview extends Document {
@@ -19,6 +35,7 @@ export interface IReview extends Document {
     accessibility_rating: number;
     overall_rating: number; 
     comment?: string;
+    type: ToiletType;
 }
 
 export interface IPhoto extends Document {
@@ -27,13 +44,10 @@ export interface IPhoto extends Document {
 }
 
 export interface CreateToiletRequest {
-    name: string; 
-    description?: string, 
-    longitude: number; 
-    latitude: number; 
-    address: string;
-    is_accessible: boolean;
-    opening_hours?: string; 
+    building_id: string;
+    name?: string;
+    longitude: number;
+    latitude: number;
 }
 
 export interface CreateReviewRequest {
@@ -42,4 +56,16 @@ export interface CreateReviewRequest {
     accessibility_rating: number; 
     overall_rating: number; 
     comment?: string;
+    type: ToiletType;
+}
+
+
+export interface CreateBuildingRequest {
+    name: string;
+    longitude: number;
+    latitude: number;
+    address: string;
+    male_toilets_count: number;
+    female_toilets_count: number;
+    unisex_toilets_count: number;
 }
