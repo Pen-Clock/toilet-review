@@ -5,7 +5,6 @@ dotenv.config();
 
 const connectDB = async (): Promise<void> => {
   try {
-    console.log('MongoDB URI:', process.env.MONGODB_URI);
     const mongoURI = process.env.MONGODB_URI;
     
     if (!mongoURI) {

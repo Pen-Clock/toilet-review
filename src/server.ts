@@ -6,6 +6,7 @@ import fs from 'fs';
 import connectDB from './database';
 import toiletRoutes from './routes/toilet';
 import reviewRoutes from './routes/reviews';
+import { validateApiKey } from './middleware/apiKeys';
 
 dotenv.config();
 
@@ -17,9 +18,8 @@ const port = process.env.PORT;
 app.use(cors());
 app.use(express.json());
 
-app.use('/api/toilets', toiletRoutes);
-app.use('/api', reviewRoutes);
-
+app.use('/api/toilets', validateApiKey, toiletRoutes);
+app.use('/api', validateApiKey, reviewRoutes);
 app.get('/', (_req, res) => {
     res.send('Toilet Finder is running');
 });
