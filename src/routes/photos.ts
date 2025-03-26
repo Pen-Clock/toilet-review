@@ -4,7 +4,7 @@ import { getToiletPhotos, uploadPhoto } from '../photoController';
 
 const router = express.Router();
 
-router.get('/toilets/:id/photos', getToiletPhotos);
-router.post('/toilets/:id/photos', uploadPhoto);
+router.get('/buildings/:id/photos', getToiletPhotos);
+router.post('/buildings/:id/photos', uploadPhoto);
 
 export default router;

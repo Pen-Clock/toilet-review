@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import Building from './models/Building';
 import { CreateBuildingRequest } from './types';
 
-
 export async function getBuildings(_req: Request, res: Response) {
   try {
     const buildings = await Building.find();
@@ -15,13 +14,15 @@ export async function getBuildings(_req: Request, res: Response) {
 
 export async function getBuildingById(req: Request, res: Response) {
   try {
-    const building = await Building.findById(req.params.id);
+    console.log(req.params.id)
+    const building = await Building.find({ "id": Number(req.params.id) });
+    console.log(building)
     
     if (!building) {
       return res.status(404).json({ error: 'Building not found' });
     }
     
-    res.json(building);
+    res.json(building[0]);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch building' });
   }

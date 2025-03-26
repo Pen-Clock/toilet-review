@@ -52,10 +52,11 @@ export interface CreateToiletRequest {
 
 export interface CreateReviewRequest {
     reviewer_nickname?: string; 
+    title?: string;
     cleanliness_rating: number;
     accessibility_rating: number; 
     overall_rating: number; 
-    comment?: string;
+    comment: string;
     type: ToiletType;
 }
 

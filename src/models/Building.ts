@@ -2,26 +2,30 @@ import mongoose, { Schema } from 'mongoose';
 import { IBuilding } from '../types';
 
 const buildingSchema = new Schema({
+  id: {
+    type: Number,
+    required: true
+  },
   name: {
     type: String,
     required: true,
     trim: true
   },
-  location: {
-    type: {
-      type: String,
-      enum: ['Point'],
-      required: true
-    },
-    coordinates: {
-      type: [Number],
-      required: true
-    }
-  },
-  address: {
-    type: String,
-    required: true
-  },
+  // location: {
+  //   type: {
+  //     type: String,
+  //     enum: ['Point'],
+  //     required: true
+  //   },
+  //   coordinates: {
+  //     type: [Number],
+  //     required: true
+  //   }
+  // },
+  // address: {
+  //   type: String,
+  //   required: true
+  // },
   male_toilets_count: {
     type: Number,
     default: 0,
@@ -41,11 +45,31 @@ const buildingSchema = new Schema({
     type: Number,
     default: 0,
     min: 0
-  }
+  },
+  average_overall: {
+    type: Number,
+    default: 0,
+    min: 0
+  },
+  average_cleanliness: {
+    type: Number,
+    default: 0,
+    min: 0
+  },
+  average_accessibility: {
+    type: Number,
+    default: 0,
+    min: 0
+  },
+  reviews_count: {
+    type: Number,
+    default: 0,
+    min: 0
+  } 
 });
 
 
-buildingSchema.index({ location: '2dsphere' });
+// buildingSchema.index({ location: '2dsphere' });
 
 buildingSchema.pre<IBuilding>('save', function(next) {
     const maleCount = this.male_toilets_count || 0;
@@ -57,4 +81,4 @@ buildingSchema.pre<IBuilding>('save', function(next) {
   });
   
 
-export default mongoose.model<IBuilding>('Building', buildingSchema);
+export default mongoose.model('Building', buildingSchema);

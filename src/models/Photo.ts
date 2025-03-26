@@ -1,9 +1,9 @@
 import mongoose, { Schema } from 'mongoose';
 
 const photoSchema = new Schema({
-    toilet_id: {
+    buildingId: {
         type: Schema.Types.ObjectId,
-        ref: 'Toilet',
+        ref: 'Building',
         required: true
     },
     url: {
